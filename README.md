@@ -1,21 +1,23 @@
-# PDF Question Answering System
+# Election Helper App
 
-This project is a PDF Question Answering System that uses Streamlit, Google's Generative AI, and LangChain to create an interactive application for querying information from PDF documents.
+This project is an Election Helper App that uses Streamlit, Google's Generative AI, and LangChain to create an interactive platform for predicting election outcomes, comparing candidates, and answering questions based on PDF documents.
 
 ## Features
 
-- Upload and process PDF documents
-- Extract text content from PDFs
-- Use Google's Generative AI for question answering
-- Interactive Streamlit interface
+- **Upload and Process PDFs**: Extract detailed candidate information from uploaded PDFs
+- **Predict Election Outcome**: Use advanced models to predict the winning candidate through the `predict.py` component
+- **Compare Candidates**: Compare candidates' profiles, policies, and more with the `compare.py` component
+- **Interactive Question Answering**: Ask questions and receive answers based on the content of PDFs using the `read_pdf.py` component
+- **Google's Generative AI Integration**: Enhanced natural language processing for more accurate responses
 
 ## Installation
 
 1. Clone this repository
 2. Install the required dependencies:
 
-
+```bash
 pip install -r requirements.txt
+```
 
 3. Set up your environment variables:
    - Create a `.env` file in the project root
@@ -23,12 +25,18 @@ pip install -r requirements.txt
 
 ## Usage
 
-Run the Streamlit app:
+1. Run the Streamlit app:
 
-
+```bash
 streamlit run app.py
+```
 
-Navigate to the provided local URL in your web browser to use the application.
+2. Use the following components for their respective tasks:
+   - **Election Outcome Prediction**: `predict.py`
+   - **Candidate Comparison**: `compare.py`
+   - **PDF-based Question Answering**: `read_pdf.py`
+
+3. Navigate to the provided local URL in your web browser to use the application.
 
 ## Dependencies
 
@@ -44,7 +52,9 @@ Navigate to the provided local URL in your web browser to use the application.
 ## Project Structure
 
 - `app.py`: Main Streamlit application
-- `read_pdf.py`: PDF processing and text extraction
+- `predict.py`: Election outcome prediction component
+- `compare.py`: Candidate comparison component
+- `read_pdf.py`: PDF processing, text extraction, and question answering component
 - `requirements.txt`: List of project dependencies
 
 ## Contributing
