@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="Main Page", page_icon="🏠")
+st.set_page_config(page_title="Election Helper", page_icon="🏠")
 
 st.title("Welcome to the Main Page")
 
