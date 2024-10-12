@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="Election Helper", page_icon="🏠")
+st.set_page_config(page_title="VoteCast Pro", page_icon="🏠")
 
 st.title("VoteCast Pro")
 
