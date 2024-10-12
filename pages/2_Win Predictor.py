@@ -13,6 +13,8 @@ import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 import pandas as pd
+import numpy as np
+from scipy.stats import norm
 
 load_dotenv()
 os.getenv("GOOGLE_API_KEY")
@@ -88,7 +90,38 @@ def check_positivity(comments):
             positivity -= 1
 
     return positivity
-    
+
+def check_positivity_array(comments):
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    positivity = []
+    for comment in comments:
+        response = model.generate_content(f"{comment}\n check if the comment is positive or nagative. if positive return 1, if negative return -1, if neutral return 0. only tell the output in the format of 1, -1, 0")
+        print(response.text)
+        if "1" in response.text and "-1" not in response.text and "0" not in response.text:
+            positivity.append(1)
+        elif "-1" in response.text and "0" not in response.text:
+            positivity.append(-1)
+
+    return positivity
+
+def calculate_z_value(sentiment_list, expected_proportion=0.5):
+    # Step 1: Calculate sample size and sample proportion
+    n = len(sentiment_list)
+    num_positive = sum(sentiment_list)
+    sample_proportion = num_positive / n
+
+    # Step 2: Calculate standard error
+    standard_error = np.sqrt((expected_proportion * (1 - expected_proportion)) / n)
+
+    # Step 3: Calculate Z-value
+    z_value = (sample_proportion - expected_proportion) / standard_error
+
+    return z_value
+
+def calculate_probability_from_z(z_value):
+    # Calculate probability using cumulative distribution function (CDF) of normal distribution
+    probability = norm.cdf(z_value)
+    return probability
 
 
 def predict_vote_percentage(features, model):
@@ -140,8 +173,13 @@ def main():
                 df = df.dropna()
                 comments = df[['Comment']].values
                 positivity = check_positivity(comments)
+                positivity_array = check_positivity_array(comments)
+                z_value = calculate_z_value(positivity_array)
+                probability = calculate_probability_from_z(z_value)
                 st.write(f"Positivity Score: {positivity}")
                 st.write(f"Positivity percentage {(positivity/len(comments))*100}%")
+                st.write(f"Z-Value: {z_value:.4f}")
+                st.write(f"Positivity Score using Z-Value: {probability*100:.4f}")
     main_parties_support = st.number_input("How many major parties support to candidate", min_value=0, value=1)
     adult_voters = st.slider("Percentage of Adult Voters (%)", 0, 100, 50)
     youth_voters = st.slider("Percentage of Youth Voters(%)", 0, 100, 30)

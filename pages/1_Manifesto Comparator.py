@@ -39,7 +39,7 @@ def get_vector_store(text_chunks):
 
 def get_conversational_chain():
     prompt_template = """
-    You are a highly knowledgeable assistant. Your goal is to answer the user's question accurately based on the provided context. If the answer is found in the context, respond clearly. If not, say, "The answer isn't found in the provided data, but here is what I found based on the closest match."\n\n
+    You are a highly knowledgeable assistant. Your goal is to answer the user's question accurately based on the provided context. If the answer is found in the context, respond clearly. If not, say, "The answer isn't found in the provided data, but here is what I found based on the closest match. Make it in point forms"\n\n
     Context:\n {context}\n
     Question: \n{question}\n
 
