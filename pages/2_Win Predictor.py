@@ -186,6 +186,7 @@ def main():
                 st.write(f"Positivity percentage {(positivity/len(comments))*100}%")
                 st.write(f"Z-Value: {z_value:.4f}")
                 st.write(f"Positivity Score using Z-Value: {probability*100:.4f}")
+    commment_possitivity_percentage = st.slider("Positivity Percentage of Comments", 0, 100, 50)
     main_parties_support = st.number_input("How many major parties support to candidate", min_value=0, value=1)
     adult_voters = st.slider("Percentage of Adult Voters (%)", 0, 100, 50)
     youth_voters = st.slider("Percentage of Youth Voters(%)", 0, 100, 30)
@@ -197,7 +198,7 @@ def main():
 
     if st.button("Predict Vote Percentage"):
         if 'model' in st.session_state:
-            features = [main_parties_support, adult_voters, youth_voters, new_voters, 
+            features = [commment_possitivity_percentage, main_parties_support, adult_voters, youth_voters, new_voters, 
                         inflation_rate, unemployment_rate, coverage_districts, election_spending]
             vote_percentage = predict_vote_percentage(features, st.session_state['model'])
             st.write(f"Predicted Vote Percentage: {vote_percentage:.2f}%")
