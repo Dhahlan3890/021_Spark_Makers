@@ -176,6 +176,12 @@ def main():
                 positivity_array = check_positivity_array(comments)
                 z_value = calculate_z_value(positivity_array)
                 probability = calculate_probability_from_z(z_value)
+                table = [{"Comment No": comments[i], "Positive/Negative": "positive" if positivity_array[i] == 1 else "negative" if positivity_array[i] == -1 else "neutral" } for i in range(len(comments))]
+
+                df = pd.DataFrame(table)
+
+                st.table(df)
+
                 st.write(f"Positivity Score: {positivity}")
                 st.write(f"Positivity percentage {(positivity/len(comments))*100}%")
                 st.write(f"Z-Value: {z_value:.4f}")
